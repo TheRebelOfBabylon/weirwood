@@ -25,7 +25,7 @@ export PATH=$PATH:$GOPATH/bin
 ```
 If you type `$ go version` you should see `go1.17 linux/amd64`
 
-## Installing bitswarmd from source
+## Installing weirwood from source
 
 In your working directory (which is your `GOPATH`), create a `/src/github.com/TheRebelOfBabylon` directory
 ```
