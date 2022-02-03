@@ -1,6 +1,11 @@
 # weirwood
 
-Repository for the Weirwood Daemon
+Repository for the Weirwood Daemon. Just like the heart tree in *A Song of Ice and Fire* the weirwood daemon is a place to store the knowledge of the world. Find peers who are running weirwood, pay them to store your files. This is an attempt at a decentralized cloud storage. This is not torrenting.
+
+Planned features include:
+- Default useage of file encryption and Tor for maximum privacy and protection
+- Integration with Bitcoin Lightning Payments
+- Integration with Aperture, a HTTP 402 Lightning Service Authentication Token Reverse Proxy
 
 # Installation
 

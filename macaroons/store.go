@@ -28,8 +28,8 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/TheRebelOfBabylon/weirwood/kvdb"
 	"github.com/btcsuite/btcwallet/snacl"
-	"gitlab.com/cypher-engineers/bitswarmd/kvdb"
 	bolt "go.etcd.io/bbolt"
 )
 

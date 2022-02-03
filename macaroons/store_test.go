@@ -29,8 +29,8 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/TheRebelOfBabylon/weirwood/kvdb"
 	"github.com/btcsuite/btcwallet/snacl"
-	"gitlab.com/cypher-engineers/bitswarmd/kvdb"
 )
 
 // createDummyRootKeyStore returns a temporary directory, a cleanup function and an instantiated RootKeyStorage

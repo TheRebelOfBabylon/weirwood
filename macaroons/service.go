@@ -26,7 +26,7 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"gitlab.com/cypher-engineers/bitswarmd/kvdb"
+	"github.com/TheRebelOfBabylon/weirwood/kvdb"
 	"google.golang.org/grpc/metadata"
 	"gopkg.in/macaroon-bakery.v2/bakery"
 	"gopkg.in/macaroon-bakery.v2/bakery/checkers"
