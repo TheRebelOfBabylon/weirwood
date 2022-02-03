@@ -1,0 +1,209 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "unlocker.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "Unlocker"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/changepassword": {
+      "post": {
+        "summary": "heartcli: `changepassword`\nChangePassword prompts the user to enter the current password and enter a new password. If no password has been set, it prompts the user to set one",
+        "operationId": "Unlocker_ChangePassword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/heartrpcChangePwdResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/heartrpcChangePwdRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Unlocker"
+        ]
+      }
+    },
+    "/v1/setpassword": {
+      "post": {
+        "summary": "heartcli: `setpassword`\nSetPassword prompts the user to set a password on first startup if no password has already been set.",
+        "operationId": "Unlocker_SetPassword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/heartrpcSetPwdResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/heartrpcSetPwdRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Unlocker"
+        ]
+      }
+    },
+    "/v1/unlock": {
+      "post": {
+        "summary": "heartcli: `unlock`\nUnlockDaemon prompts the user to enter their password if a password has already been set. If not, re-prompts user to set a password",
+        "operationId": "Unlocker_UnlockDaemon",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/heartrpcUnlockResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/heartrpcUnlockRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Unlocker"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "heartrpcChangePwdRequest": {
+      "type": "object",
+      "properties": {
+        "current_password": {
+          "type": "string",
+          "format": "byte"
+        },
+        "new_password": {
+          "type": "string",
+          "format": "byte"
+        },
+        "stateless_init": {
+          "type": "boolean"
+        },
+        "new_macaroon_root_key": {
+          "type": "boolean"
+        }
+      }
+    },
+    "heartrpcChangePwdResponse": {
+      "type": "object",
+      "properties": {
+        "admin_macaroon": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "heartrpcSetPwdRequest": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "format": "byte"
+        },
+        "stateless_init": {
+          "type": "boolean"
+        }
+      }
+    },
+    "heartrpcSetPwdResponse": {
+      "type": "object",
+      "properties": {
+        "admin_macaroon": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "heartrpcUnlockRequest": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "heartrpcUnlockResponse": {
+      "type": "object"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

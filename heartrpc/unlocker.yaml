@@ -1,0 +1,14 @@
+type: google.api.Service
+config_version: 3
+
+http:
+  rules:
+    - selector: heartrpc.Unlocker.SetPassword
+      post: "/v1/setpassword"
+      body: "*"
+    - selector: heartrpc.Unlocker.UnlockDaemon
+      post: "/v1/unlock"
+      body: "*"
+    - selector: heartrpc.Unlocker.ChangePassword
+      post: "/v1/changepassword"
+      body: "*"

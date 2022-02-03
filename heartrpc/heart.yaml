@@ -1,0 +1,24 @@
+type: google.api.Service
+config_version: 3
+
+http:
+  rules:
+    - selector: heartrpc.HeartTree.StopDaemon
+      get: "/v1/stop"
+    - selector: heartrpc.HeartTree.TestCommand
+      get: "/v1/test"
+    - selector: heartrpc.HeartTree.AdminTest
+      get: "/v1/admintest"
+    - selector: heartrpc.HeartTree.AddNode
+      post: "/v1/add/node"
+      body: "*"
+    - selector: heartrpc.HeartTree.DeleteNode
+      delete: "/v1/delete/{onion_addr}"
+    - selector: heartrpc.HeartTree.ListNodes
+      get: "/v1/list/nodes"
+    - selector: heartrpc.HeartTree.GetInfo
+      post: "/v1/get/info"
+      body: "*"
+    - selector: heartrpc.HeartTree.SeedFile
+      post: "/v1/seed/file"
+      body: "*"

@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package heartrpc;
+
+option go_package = "github.com/TheRebelOfBabylon/weirwood/heartrpc";
+
+// Unlocker is the service for creating, entering and changing passwords for unlocking the macaroon key-store
+service Unlocker {
+    /* heartcli: `setpassword`
+    SetPassword prompts the user to set a password on first startup if no password has already been set.
+    */
+    rpc SetPassword (SetPwdRequest) returns (SetPwdResponse);
+    /* heartcli: `unlock`
+    UnlockDaemon prompts the user to enter their password if a password has already been set. If not, re-prompts user to set a password
+    */
+    rpc UnlockDaemon (UnlockRequest) returns (UnlockResponse);
+    /* heartcli: `changepassword`
+    ChangePassword prompts the user to enter the current password and enter a new password. If no password has been set, it prompts the user to set one
+    */
+    rpc ChangePassword (ChangePwdRequest) returns (ChangePwdResponse);
+}
+
+message SetPwdRequest {
+    bytes password = 1;
+    bool stateless_init = 2;
+}
+message SetPwdResponse {
+    bytes admin_macaroon = 1;
+}
+message UnlockRequest {
+    bytes password = 1;
+}
+message UnlockResponse {
+}
+message ChangePwdRequest {
+    bytes current_password = 1;
+    bytes new_password = 2;
+    bool stateless_init = 3;
+    bool new_macaroon_root_key = 4;
+}
+message ChangePwdResponse {
+    bytes admin_macaroon = 1;
+}

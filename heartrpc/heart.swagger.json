@@ -1,0 +1,424 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "heart.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "HeartTree"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/add/node": {
+      "post": {
+        "summary": "heartcli: `addnode`\nAddNode takes the user inputted onion address with format validonionaddreess.onion:port of another node and adds it to a list of known nodes.",
+        "operationId": "HeartTree_AddNode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/heartrpcAddNodeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/heartrpcAddNodeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "HeartTree"
+        ]
+      }
+    },
+    "/v1/admintest": {
+      "get": {
+        "summary": "heartcli: `admintest`\nAdminTest will send a string response only if a macaroon is provided.",
+        "operationId": "HeartTree_AdminTest",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/heartrpcAdminTestResponse"
+                },
+                "error": {
+                  "$ref": "#/definitions/rpcStatus"
+                }
+              },
+              "title": "Stream result of heartrpcAdminTestResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "HeartTree"
+        ]
+      }
+    },
+    "/v1/delete/{onion_addr}": {
+      "delete": {
+        "summary": "heartcli: `deletenode`\nDeleteNode takes the user inputted onion address of a node and removes it from the list of known nodes.",
+        "operationId": "HeartTree_DeleteNode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/heartrpcDeleteNodeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "onion_addr",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "HeartTree"
+        ]
+      }
+    },
+    "/v1/get/info": {
+      "post": {
+        "summary": "heartcli: `getinfo`\nGetInfo returns general information about the given node including it's capabilities, prices, etc. \nIf no address is given, it is assumed to be the localhost node",
+        "operationId": "HeartTree_GetInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/heartrpcGetInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/heartrpcGetInfoRequest"
+            }
+          }
+        ],
+        "tags": [
+          "HeartTree"
+        ]
+      }
+    },
+    "/v1/list/nodes": {
+      "get": {
+        "summary": "heartcli: `listnodes`\nListNodes returns a list of all nodes in the list",
+        "operationId": "HeartTree_ListNodes",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/heartrpcGetInfoResponse"
+                },
+                "error": {
+                  "$ref": "#/definitions/rpcStatus"
+                }
+              },
+              "title": "Stream result of heartrpcGetInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "HeartTree"
+        ]
+      }
+    },
+    "/v1/seed/file": {
+      "post": {
+        "summary": "SeedFile takes a SeedFileRequest including a filename, filesize and upon payment, returns TCP upload information. Upon successful download, returns a magnet link",
+        "operationId": "HeartTree_SeedFile",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/heartrpcSeedFileResponse"
+                },
+                "error": {
+                  "$ref": "#/definitions/rpcStatus"
+                }
+              },
+              "title": "Stream result of heartrpcSeedFileResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/heartrpcSeedFileRequest"
+            }
+          }
+        ],
+        "tags": [
+          "HeartTree"
+        ]
+      }
+    },
+    "/v1/stop": {
+      "get": {
+        "summary": "heartcli: `stop`\nStopDaemon will send a shutdown request to the interrupt handler, triggering\na graceful shutdown of the daemon.",
+        "operationId": "HeartTree_StopDaemon",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/heartrpcStopResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "HeartTree"
+        ]
+      }
+    },
+    "/v1/test": {
+      "get": {
+        "summary": "heartcli: `test`\nTestCommand will send a string response regardless if a macaroon is provided or not.",
+        "operationId": "HeartTree_TestCommand",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/heartrpcTestResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "HeartTree"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "heartrpcAddNodeRequest": {
+      "type": "object",
+      "properties": {
+        "onion_addr": {
+          "type": "string",
+          "title": "validonionaddress.onion:port of the seeder"
+        }
+      }
+    },
+    "heartrpcAddNodeResponse": {
+      "type": "object"
+    },
+    "heartrpcAdminTestResponse": {
+      "type": "object",
+      "properties": {
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "heartrpcDeleteNodeResponse": {
+      "type": "object"
+    },
+    "heartrpcGetInfoRequest": {
+      "type": "object",
+      "properties": {
+        "onion_addr": {
+          "type": "string",
+          "title": "optional if not given, returns information about this node"
+        }
+      }
+    },
+    "heartrpcGetInfoResponse": {
+      "type": "object",
+      "properties": {
+        "onion_addr": {
+          "type": "string",
+          "title": "onion address of the node. If none is given, assume localhost"
+        },
+        "node_state": {
+          "$ref": "#/definitions/heartrpcNodeState",
+          "title": "boolean indicating if node is seeding, curating or both"
+        },
+        "seeding_price_per_byte": {
+          "type": "number",
+          "format": "double",
+          "title": "mSat price per byte for seeding a file. 0 if not charging for this"
+        },
+        "file_decrypting_price": {
+          "type": "string",
+          "format": "int64",
+          "title": "mSat price for decrypting a seeded file. 0 if not charging for this"
+        },
+        "avaible_byte_space": {
+          "type": "string",
+          "format": "int64",
+          "title": "Amount of available space in bytes for new files"
+        },
+        "list_price": {
+          "type": "string",
+          "format": "int64",
+          "title": "mSat price for listing on the node database. 0 if not charging for this"
+        },
+        "get_list_of_seeders_price": {
+          "type": "string",
+          "format": "int64",
+          "title": "mSat price for getting a list of seeders and their prices. 0 if not charging for this"
+        }
+      }
+    },
+    "heartrpcNodeState": {
+      "type": "string",
+      "enum": [
+        "SEEDING",
+        "CURATING",
+        "BOTH"
+      ],
+      "default": "SEEDING"
+    },
+    "heartrpcSeedFileRequest": {
+      "type": "object",
+      "properties": {
+        "file_name": {
+          "type": "string"
+        },
+        "file_size": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "heartrpcSeedFileResponse": {
+      "type": "object",
+      "properties": {
+        "tcp_addr": {
+          "type": "string"
+        },
+        "upload_state": {
+          "$ref": "#/definitions/heartrpcUploadState"
+        },
+        "magnet_link": {
+          "type": "string"
+        }
+      }
+    },
+    "heartrpcStopResponse": {
+      "type": "object"
+    },
+    "heartrpcTestResponse": {
+      "type": "object",
+      "properties": {
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "heartrpcUploadState": {
+      "type": "string",
+      "enum": [
+        "STARTED",
+        "IN_PROGRESS",
+        "FINISHED",
+        "FAILED"
+      ],
+      "default": "STARTED"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
